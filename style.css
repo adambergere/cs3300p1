@@ -1,0 +1,9 @@
+
+body { font-family: "Open Sans"; }
+div { margin: 30px; }
+svg { background-color: #eee; }
+.axis path { fill: none; stroke: black; }
+.axis line { stroke: black; }
+.axis text { font-size: 10pt; }
+path.outline { fill: none; stroke-width: 5; stroke: white; }
+path.plot { fill: none; stroke-width: 3; }
