@@ -15,9 +15,6 @@
 </head>
 <body>
 
-
-<div id="p4output"></div>
-
 <div id="map"></div>
 <script>
 
@@ -65,12 +62,6 @@ d3.json("world-50m.json", function(error, world) {
 		.style("stroke", "#888");
 	});
 	
-	// We can use the projection function to get
-	//  the location of a point. This is useful for
-	//  data that comes with specific long/lats.
-
-	// Testing Asia 6 Earthquakes.
-
 	var earthquakeRef = new Firebase("https://publicdata-earthquakes.firebaseio.com/by_continent/");
 
 earthquakeRef.child("north_america/6").on("child_added", showEarthquake);
@@ -118,19 +109,31 @@ earthquakeRef.child("europe/10").on("child_added", showEarthquake);
 earthquakeRef.child("antarctica/10").on("child_added", showEarthquake);
 earthquakeRef.child("oceanic/10").on("child_added", showEarthquake);
 
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
 
 
-
+// Prints data onto the Map SVG
 function showEarthquake(snapshot) {
     var earthquake = snapshot.val();
-    console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + earthquake.time);
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
 
     if(earthquake.mag >= 6){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
 	.attr("r", 3).attr("fill","#84B6E1")
-	.style("opacity",1)
+	.style("opacity",.8)
 	.attr("stroke","black");
     }
 
@@ -138,41 +141,221 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", 10).attr("fill", "#9C6D92")
-	.style("opacity",0.5)
+	.attr("r", 7).attr("fill", "#9C6D92")
+	.style("opacity",0.65)
+	.attr("stroke","black");
     }
 
     if(earthquake.mag >= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", 16).attr("fill", "red")
-	.style("opacity",0.5);
+	.attr("r", 14).attr("fill", "red")
+	.style("opacity",0.3)
+	.attr("stroke","black");
     }
 
 }
 
-// colors
-// #2F4759,#276B74,#2D9080,#59B47D,#9CD471,#EFEE69
+
+earthquakeRef.child("north_america/6").on("child_added", naEarthquake);
+earthquakeRef.child("north_america/7").on("child_added", naEarthquake);
+earthquakeRef.child("north_america/8").on("child_added", naEarthquake);
+earthquakeRef.child("north_america/9").on("child_added", naEarthquake);
+earthquakeRef.child("north_america/10").on("child_added", naEarthquake);
+
+earthquakeRef.child("south_america/6").on("child_added", saEarthquake);
+earthquakeRef.child("south_america/7").on("child_added", saEarthquake);
+earthquakeRef.child("south_america/8").on("child_added", saEarthquake);
+earthquakeRef.child("south_america/9").on("child_added", saEarthquake);
+earthquakeRef.child("south_america/10").on("child_added", saEarthquake);
+
+earthquakeRef.child("africa/6").on("child_added", africaEarthquake);
+earthquakeRef.child("africa/7").on("child_added", africaEarthquake);
+earthquakeRef.child("africa/8").on("child_added", africaEarthquake);
+earthquakeRef.child("africa/9").on("child_added", africaEarthquake);
+earthquakeRef.child("africa/10").on("child_added", africaEarthquake);
+
+earthquakeRef.child("asia/6").on("child_added", asiaEarthquake);
+earthquakeRef.child("asia/7").on("child_added", asiaEarthquake);
+earthquakeRef.child("asia/8").on("child_added", asiaEarthquake);
+earthquakeRef.child("asia/9").on("child_added", asiaEarthquake);
+earthquakeRef.child("asia/10").on("child_added", asiaEarthquake);
+
+earthquakeRef.child("australia/6").on("child_added", australiaEarthquake);
+earthquakeRef.child("australia/7").on("child_added", australiaEarthquake);
+earthquakeRef.child("australia/8").on("child_added", australiaEarthquake);
+earthquakeRef.child("australia/9").on("child_added", australiaEarthquake);
+earthquakeRef.child("australia/10").on("child_added", australiaEarthquake);
+
+earthquakeRef.child("europe/6").on("child_added", europeEarthquake);
+earthquakeRef.child("europe/7").on("child_added", europeEarthquake);
+earthquakeRef.child("europe/8").on("child_added", europeEarthquake);
+earthquakeRef.child("europe/9").on("child_added", europeEarthquake);
+earthquakeRef.child("europe/10").on("child_added", europeEarthquake);
+
+earthquakeRef.child("antarctica/6").on("child_added", antarcticaEarthquake);
+earthquakeRef.child("antarctica/7").on("child_added", antarcticaEarthquake);
+earthquakeRef.child("antarctica/8").on("child_added", antarcticaEarthquake);
+earthquakeRef.child("antarctica/9").on("child_added", antarcticaEarthquake);
+earthquakeRef.child("antarctica/10").on("child_added", antarcticaEarthquake);
+
+earthquakeRef.child("oceanic/6").on("child_added", oceanicEarthquake);
+earthquakeRef.child("oceanic/7").on("child_added", oceanicEarthquake);
+earthquakeRef.child("oceanic/8").on("child_added", oceanicEarthquake);
+earthquakeRef.child("oceanic/9").on("child_added", oceanicEarthquake);
+earthquakeRef.child("oceanic/10").on("child_added", oceanicEarthquake);
 
 
-	// Sample Text labels
-	// var ithacaLabel = projection([-77,44]);
-	// g.append("text").text("Ithaca, NY, USA").attr("x",ithacaLabel[0]).attr("y",ithacaLabel[1]).style("fill","226666");
+var na_count = 0;
+var sa_count = 0;
+var africa_count = 0;
+var asia_count = 0;
+var australia_count = 0;
+var europe_count = 0;
+var antarctica_count = 0;
+var oceanic_count = 0;
 
-	// var sgLabel = projection([103,3]);
-	// g.append("text").text("Singapore, Singapore").attr("x",sgLabel[0]).attr("y",sgLabel[1]).style("fill","226666");;
+function naEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    na_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_na = function(){
+    	return na_count;
+    };
+}
 
-	// var jpLabel = projection([136,37]);
-	// g.append("text").text("Gifu, Japan").attr("x",jpLabel[0]).attr("y",jpLabel[1]).style("fill","226666");
+function saEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    sa_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_sa = function(){
+    	return sa_count;
+    };
+}
+
+// SPECIAL CASE for Africa--probably 0//
+function africaEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    africa_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_africa = function(){
+    	return africa_count;
+    };
+}
+
+function asiaEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    asia_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_asia = function(){
+    	return asia_count;
+    };
+}
 
 
+// SPECIAL CASE for Austrlia--probably 0//
+function australiaEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    australia_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_australia = function(){
+    	return australia_count;
+    };
+}
+
+function europeEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    europe_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_europe = function(){
+    	return europe_count;
+    };
+}
+
+function antarcticaEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    antarctica_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_antarctica = function(){
+    	return antarctica_count;
+    };
+}
+
+function oceanicEarthquake(snapshot) {
+    var earthquake = snapshot.val();
+    oceanic_count += 1;
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    return number_oceanic = function(){
+    	return oceanic_count;
+    };
+}
 
 
 });
+</script>
 
+<div id="histogram"></div>
+
+<script>
+
+var height = 500;
+var width = 960;
+var padding = 220; // Use a wide padding so we can spot a problem with bars.
+
+var svg = d3.select("#histogram").append("svg")
+.attr("height", height).attr("width", width);
+
+var regions = ["North America", "South America", "Africa", "Asia","Australia","Europe","Antarctica","Oceanic"];
+
+// I want to use functions from above but don't know how to load them first so i manually entered the numbers here.
+var counts = {
+	"North America": 47,
+	"South America": 50,
+	"Africa": 0,
+	"Asia": 79,
+	"Australia": 0,
+	"Europe": 11,
+	"Antarctica": 4,
+	"Oceanic": 128
+}
+
+var yBands = d3.scale.ordinal()
+.domain(regions)
+.rangeRoundBands([10, height], 0.1); // The 0.5 controls how much space goes between bars.
+
+// An ordinal scale for elements that we want to center.
+// (A text has width, but we don't control it easily)
+//  https://github.com/mbostock/d3/wiki/Ordinal-Scales#ordinal_rangePoints
+var yPoints = d3.scale.ordinal()
+.domain(regions)
+.rangePoints([10, height], 0.8); // The 1.0 controls how far the first and last points are from the extreme pixel values.
+
+var xScale = d3.scale.linear()
+.domain([0, 90])
+.range([padding, width - padding]);
+
+regions.forEach(function (p) {
+	svg.append("text").attr("x", xScale(0) - padding/1.1)
+	.attr("y", yPoints(p))
+	.text(p);
+	
+	// Here's the tricky part: We need to set the width of
+	//  the bars to the *distance* in pixels from the 
+	//  left to the right, but xScale gives us the *position*
+	//  of the right side of the bar.
+	
+	svg.append("rect")
+	.attr("x", xScale(-4))
+	.attr("y", yBands(p))
+	.attr("class", "dullorange")
+	.attr("height", yBands.rangeBand())
+	.attr("width", 
+	xScale(counts[p] ) - xScale(0));
+});
 
 </script>
+
 
 
 
