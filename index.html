@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
 	<title>Project 1</title>
 
@@ -10,39 +11,33 @@
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 
 	<!-- CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
-<div id="map"></div>
+<div id="map" style="text-align:center; font-family:'Glegoo', serif; font-size: 20px">
+	<b>Live Feed of Earthquakes</b><br>
+</div>
 <script>
 
 var width = 960, height = 500;
-// A projection is a particular type of scale, that maps
-// a pair of LONGITUDE, LATITUDE coordinates (NOT the other
-// way around) to a point in pixel space.
-var projection = d3.geo.equirectangular();
-// Look at the documentation https://github.com/mbostock/d3/wiki/Geo-Projections
-// for different projections and ways to change the 
-// zoom and center of the projection. 
 
-// This function will convert a set of coordinates
-//  into a <path> attribute.
+var projection = d3.geo.equirectangular();
+
 var path = d3.geo.path().projection(projection);
 	
 var svg = d3.select("#map").append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .style("background-color", "#f8f8f8")
+    .style("outline", "1px solid #ccc");
 var g = svg.append("g");
 
-// We need to declare a variable outside the scope of
-//  the json callback if we want to examine it. This 
-//  is useful for debugging.
 var worldObjects;
 
-// Get a JSON file containing coordinates of 
-//  countries and landmasses. This is from an 
-//  example provided by Mike Bostock.
 d3.json("world-50m.json", function(error, world) {
 	worldObjects = world;
 	
@@ -57,8 +52,8 @@ d3.json("world-50m.json", function(error, world) {
 	// convert each country's data into a path element.
 	countries.forEach(function (country) {
 		g.append("path").attr("d", path(country))
-		.style("fill", "#ccc")
-		.style("stroke", "#888");
+		.style("fill", "#cbcea5")
+		.style("stroke", "#777");
 	});
 	
 	var earthquakeRef = new Firebase("https://publicdata-earthquakes.firebaseio.com/by_continent/");
@@ -131,8 +126,8 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15).attr("fill","#84B6E1")
-	.style("opacity",.6)
+	.attr("r", 3).attr("fill","#F2F205")
+	.style("opacity",.8)
 	.attr("stroke","black");
     }
 
@@ -140,8 +135,8 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15).attr("fill", "#9C6D92")
-	.style("opacity",0.5)
+	.attr("r", 7).attr("fill", "#F29F05")
+	.style("opacity",0.65)
 	.attr("stroke","black");
     }
 
@@ -149,8 +144,8 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15).attr("fill", "red")
-	.style("opacity",0.35)
+	.attr("r", 14).attr("fill", "#F20000")
+	.style("opacity",0.4)
 	.attr("stroke","black");
     }
 
@@ -294,20 +289,84 @@ function oceanicEarthquake(snapshot) {
 });
 </script>
 
-<div id="histogram"></div>
+<div id="mapkey" style="font-family:'Glegoo',serif;font-size:15px;text-align:center">
+</div>
+
+<script>
+	var height = 120;
+	var width = 500;
+
+	var svg = d3.select("#mapkey").append("svg")
+	.attr("height", height).attr("width", width)
+	.style("background-color","#fff")
+	.style("font-size","15px");
+
+	svg.append("circle")
+	.attr("cx", width/4)
+	.attr("cy", 15)
+	.attr("r", 10)
+	.style("fill", "#F2F205")
+	.style("stroke", "#e0e011")
+	.style("stroke-width", 3);
+
+	svg.append("text")
+	.attr("x", (width/4)+30)
+	.attr("y", 20)
+	.style("font-weight", "bold")
+	.style("fill", "#bfbf01")
+	.text("Magnitude between 6.0 and 7.0")
+
+	svg.append("circle")
+	.attr("cx", width/4)
+	.attr("cy", 55)
+	.attr("r", 10)
+	.style("fill", "#F29F05")
+	.style("stroke", "#db8b02")
+	.style("stroke-width", 3);
+
+	svg.append("text")
+	.attr("x", (width/4)+30)
+	.attr("y", 60)
+	.style("font-weight", "bold")
+	.style("fill", "#db8b02")
+	.text("Magnitude between 7.0 and 8.0")
+
+	svg.append("circle")
+	.attr("cx", width/4)
+	.attr("cy", 95)
+	.attr("r", 10)
+	.style("fill", "#F20000")
+	.style("stroke", "#c40303")
+	.style("stroke-width", 3)
+
+	svg.append("text")
+	.attr("x", (width/4)+30)
+	.attr("y", 100)
+	.style("font-weight", "bold")
+	.attr("fill", "#c40303")
+	.text("Magnitude greater than 8.0")
+</script>
+
+<div id="histogram" style="font-family:'Glegoo',serif; font-weight:bold; font-size:20px;
+text-align:center">
+	<br><b>Number of Earthquakes Per Region</b><br>
+</div>
 
 <script>
 
-var height = 500;
+var height = 400;
 var width = 960;
-var padding = 220; // Use a wide padding so we can spot a problem with bars.
+var padding = 220; 
 
 var svg = d3.select("#histogram").append("svg")
-.attr("height", height).attr("width", width);
+.attr("height", height).attr("width", width)
+.style("background-color","#efefef")
+.style("outline", "1px solid #ccc")
+.style("font-family", "Varela Round, sans-serif")
+.style("font-size","15px");
 
 var regions = ["North America", "South America", "Africa", "Asia","Australia","Europe","Antarctica","Oceanic"];
 
-// I want to use functions from above but don't know how to load them first so i manually entered the numbers here. Might need try and catch for africa and australia since those values are typically 0.
 var counts = {
 	"North America": 47,
 	"South America": 50,
@@ -321,14 +380,11 @@ var counts = {
 
 var yBands = d3.scale.ordinal()
 .domain(regions)
-.rangeRoundBands([10, height], 0.1); // The 0.5 controls how much space goes between bars.
+.rangeRoundBands([0, height], 0.3); 
 
-// An ordinal scale for elements that we want to center.
-// (A text has width, but we don't control it easily)
-//  https://github.com/mbostock/d3/wiki/Ordinal-Scales#ordinal_rangePoints
 var yPoints = d3.scale.ordinal()
 .domain(regions)
-.rangePoints([10, height], 0.8); // The 1.0 controls how far the first and last points are from the extreme pixel values.
+.rangePoints([15, height-5], 0.8); 
 
 var xScale = d3.scale.linear()
 .domain([0, 90])
@@ -337,25 +393,77 @@ var xScale = d3.scale.linear()
 regions.forEach(function (p) {
 	svg.append("text").attr("x", xScale(0) - padding/1.1)
 	.attr("y", yPoints(p))
-	.text(p);
-	
-	// Here's the tricky part: We need to set the width of
-	//  the bars to the *distance* in pixels from the 
-	//  left to the right, but xScale gives us the *position*
-	//  of the right side of the bar.
+	.text(p)
 	
 	svg.append("rect")
 	.attr("x", xScale(-4))
 	.attr("y", yBands(p))
-	.attr("class", "dullorange")
-	.attr("height", yBands.rangeBand())
-	.attr("width", 
-	xScale(counts[p] ) - xScale(0));
+	.attr("height", yBands.rangeBand()-3)
+	.attr("width", xScale(counts[p] ) - xScale(0))
+	.attr("fill", "orange");
 });
+
+
 
 </script>
 
+<div id="linegraph" style="font-family:'Glegoo',serif; font-weight:bold; font-size:20px;
+text-align:center">
+	<br><b>Earthquake Timeline</b><br>
+</div>
 
+<script>
+
+var height = 550;
+var width = 850;
+var padding = 70; 
+
+var svg = d3.select("#linegraph").append("svg")
+.attr("height", height).attr("width", width)
+.style("background-color","#efefef")
+.style("font-size","15px")
+.style("font-family","Varela Round, sans-serif")
+.style("outline", "1px solid #ccc");
+svg.append("g");
+
+var mindom = new Date('January 1, 2015 0:00:00');
+var maxdom = new Date('March 7, 2016 0:00:00');
+var xScale = d3.time.scale().domain([mindom, maxdom]).range([padding, width-20]);
+var yScale = d3.scale.linear().domain([1,10]).range([height-padding, padding]);
+
+var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(9);
+var yAxis = d3.svg.axis().scale(yScale)
+    .orient("left").ticks(5);
+
+var yAxis = d3.svg.axis().scale(yScale)
+    .orient("left").ticks(5);
+
+svg.append("g")
+.attr("class", "axis")
+.attr("transform", "translate(0," + (height-padding) + ")")
+.call(xAxis);
+
+svg.append("g")
+.attr("transform", "translate(" + padding + ",0)")
+.attr("class", "axis")
+.call(yAxis);
+
+svg.append("text")
+.text("Magnitude")
+.attr("x", -height/2)             
+.attr("y", 30)
+.attr("text-anchor", "middle")  
+.attr("transform", function(d) {return "rotate(-90)"})
+.style("font-size", "18px") ;
+
+svg.append("text")
+.attr("x", width/2)             
+.attr("y", height-20)
+.attr("text-anchor", "middle")  
+.style("font-size", "18px") 
+.text("Date of Earthquake");
+
+</script>
 
 
 </body>
