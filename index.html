@@ -436,6 +436,13 @@ regions.forEach(function (p) {
 			.text(counts[p])
 			.style("fill", "white")
 		}
+		else if (counts[p] >= 100) {
+			svg.append("text")
+			.attr("x", xScale(-11) + (xScale(counts[p] ) - xScale(0)))
+			.attr("y", yBands(p)+20)
+			.text(counts[p])
+			.style("fill", "white")
+		}
 		else {
 			svg.append("text")
 			.attr("x", xScale(-10) + (xScale(counts[p] ) - xScale(0)))
