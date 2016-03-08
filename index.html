@@ -14,6 +14,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -122,30 +123,32 @@ function showEarthquake(snapshot) {
     var earthquake = snapshot.val();
     // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
 
-    if(earthquake.mag >= 6){
+    if (earthquake.mag <= 7){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
 	.attr("r", earthquake.mag*3-15).attr("fill","#F2F205")
-	.style("opacity",.8)
-	.attr("stroke","black");
+	.style("opacity",.6)
+	.attr("stroke","black")
+	;
     }
 
-    if(earthquake.mag >= 7){
+    else if(earthquake.mag <= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
 	.attr("r", earthquake.mag*3-15).attr("fill", "#F29F05")
-	.style("opacity",0.65)
-	.attr("stroke","black");
+	.style("opacity",0.6)
+	.attr("stroke","black");;
     }
 
-    if(earthquake.mag >= 8){
+    else if (earthquake.mag >= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15).attr("fill", "#F20000")
-	.style("opacity",0.4)
+	.attr("r", earthquake.mag*3-15)
+	.attr("fill", "#f20000")
+	.style("opacity",0.6)
 	.attr("stroke","black");
     }
 
@@ -314,7 +317,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 20)
 	.style("font-weight", "bold")
 	.style("fill", "#bfbf01")
-	.text("Magnitude between 6.0 and 7.0")
+	.text("Magnitude less than 7.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -362,8 +365,8 @@ var svg = d3.select("#histogram").append("svg")
 .attr("height", height).attr("width", width)
 .style("background-color","#efefef")
 .style("outline", "1px solid #ccc")
-.style("font-family", "Varela Round, sans-serif")
-.style("font-size","15px");
+.style("font-family", "Sanchez, sans-serif")
+.style("font-size","16px");
 
 var regions = ["North America", "South America", "Africa", "Asia","Australia","Europe","Antarctica","Oceanic"];
 
@@ -390,17 +393,32 @@ var xScale = d3.scale.linear()
 .domain([0, 90])
 .range([padding, width - padding]);
 
+var gradient = svg
+  	.append("linearGradient")
+    .attr("id", "gradient")
+    .attr("x1", "0%")
+    .attr("y1", "100%")
+    .attr("x2", "100%")
+    .attr("y2", "100%");
+gradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#ede217");
+gradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#e00d06");
+
 regions.forEach(function (p) {
 	svg.append("text").attr("x", xScale(0) - padding/1.1)
 	.attr("y", yPoints(p))
+	.attr("fill","#555")
 	.text(p)
 	
 	svg.append("rect")
-	.attr("x", xScale(-4))
+	.attr("x", xScale(-5))
 	.attr("y", yBands(p))
 	.attr("height", yBands.rangeBand()-3)
 	.attr("width", xScale(counts[p] ) - xScale(0))
-	.attr("fill", "orange");
+	.attr("fill", "url(#gradient)");
 });
 
 
