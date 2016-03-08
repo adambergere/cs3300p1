@@ -322,7 +322,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 20)
 	.style("font-weight", "bold")
 	.style("fill", "#bfbf01")
-	.text("Magnitudes between 6.0 and 7.0")
+	.text("Magnitudes between 5.0 and 7.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -424,6 +424,23 @@ regions.forEach(function (p) {
 	.attr("height", yBands.rangeBand()-3)
 	.attr("width", xScale(counts[p] ) - xScale(0))
 	.attr("fill", "url(#gradient)");
+
+	if(counts[p] != 0) {
+		if(counts[p] <= 10) {
+			svg.append("text")
+			.attr("x", xScale(-8) + (xScale(counts[p] ) - xScale(0)))
+			.attr("y", yBands(p)+20)
+			.text(counts[p])
+			.style("fill", "white")
+		}
+		else {
+			svg.append("text")
+			.attr("x", xScale(-10) + (xScale(counts[p] ) - xScale(0)))
+			.attr("y", yBands(p)+20)
+			.text(counts[p])
+			.style("fill", "white")
+		}
+	};
 });
 
 
@@ -449,7 +466,7 @@ var svg = d3.select("#linegraph").append("svg")
 .style("outline", "1px solid #ccc");
 svg.append("g");
 
-var mindom = new Date('January 1, 2015 0:00:00');
+var mindom = new Date('January 1, 2014 0:00:00');
 var maxdom = new Date('March 7, 2016 0:00:00');
 var xScale = d3.time.scale().domain([mindom, maxdom]).range([padding, width-20]);
 var yScale = d3.scale.linear().domain([1,10]).range([height-padding, padding]);
@@ -485,6 +502,7 @@ svg.append("text")
 .attr("text-anchor", "middle")  
 .style("font-size", "18px") 
 .text("Date of Earthquake");
+
 
 </script>
 
