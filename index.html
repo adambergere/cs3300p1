@@ -287,19 +287,22 @@ function oceanicEarthquake(snapshot) {
     };
 }
 
-
 });
 
+// Extra note on map
 	svg.append("text")
 	.text("* Radius of circle indicates magnitude of earthquake")
 	.attr("x", width/2)
 	.attr("y", height-20)
 	.style("font-size", "10pt")
 	.style("font-weight","bold");
+
 </script>
+
 <div id="mapkey" style="font-family:'Glegoo',serif;font-size:15px;text-align:center">
 </div>
 
+<!-- Javascript to generate Key for the map -->
 <script>
 	var height = 120;
 	var width = 500;
@@ -360,6 +363,7 @@ text-align:center">
 	<br><b>Number of Earthquakes Per Region</b><br>
 </div>
 
+<!-- Javascript for histogram -->
 <script>
 
 var height = 400;
