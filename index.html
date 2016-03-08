@@ -121,7 +121,7 @@ function timeConverter(UNIX_timestamp){
 // Prints data onto the Map SVG
 function showEarthquake(snapshot) {
     var earthquake = snapshot.val();
-    console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
 
     if (earthquake.mag >= 5 && earthquake.mag <= 7){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
@@ -316,7 +316,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 20)
 	.style("font-weight", "bold")
 	.style("fill", "#bfbf01")
-	.text("Magnitude less than 7.0")
+	.text("Magnitudes between 6.0 and 7.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -331,7 +331,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 60)
 	.style("font-weight", "bold")
 	.style("fill", "#db8b02")
-	.text("Magnitude between 7.0 and 8.0")
+	.text("Magnitudes between 7.0 and 8.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -346,7 +346,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 100)
 	.style("font-weight", "bold")
 	.attr("fill", "#c40303")
-	.text("Magnitude greater than 8.0")
+	.text("Magnitudes greater than 8.0")
 </script>
 
 <div id="histogram" style="font-family:'Glegoo',serif; font-weight:bold; font-size:20px;
