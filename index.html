@@ -20,7 +20,7 @@
 <body>
 
 <div id="map" style="text-align:center; font-family:'Glegoo', serif; font-size: 20px">
-	<b>Live Feed of Earthquakes</b><br>
+	<b>Live Feed of Recent (within the last 2 years from today) Earthquakes </b><br>
 </div>
 <script>
 
@@ -123,21 +123,28 @@ function showEarthquake(snapshot) {
     var earthquake = snapshot.val();
     // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
 
-    if (earthquake.mag <= 7){
+    if (earthquake.mag >= 5 && earthquake.mag <= 7){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
+<<<<<<< HEAD
 	.attr("r", earthquake.mag*3-15).attr("fill","#F2F205")
 	.style("opacity",.6)
 	.attr("stroke","black")
 	;
     }
+=======
+	.attr("r", earthquake.mag*3-14).attr("fill","#F2F205")
+	.style("opacity",.6)
+	.attr("stroke","black");
+	}
+>>>>>>> 6e1e897dce8826989e6ddac7a6cf8bd50f110e5e
 
-    else if(earthquake.mag <= 8){
+    else if(earthquake.mag >= 7 && earthquake.mag <= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15).attr("fill", "#F29F05")
+	.attr("r", earthquake.mag*3-14).attr("fill", "#F29F05")
 	.style("opacity",0.6)
 	.attr("stroke","black");;
     }
@@ -146,9 +153,9 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-	.attr("r", earthquake.mag*3-15)
+	.attr("r", earthquake.mag*3-14)
 	.attr("fill", "#f20000")
-	.style("opacity",0.6)
+	.style("opacity",0.55)
 	.attr("stroke","black");
     }
 
@@ -323,7 +330,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 20)
 	.style("font-weight", "bold")
 	.style("fill", "#bfbf01")
-	.text("Magnitude less than 7.0")
+	.text("Magnitudes between 6.0 and 7.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -338,7 +345,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 60)
 	.style("font-weight", "bold")
 	.style("fill", "#db8b02")
-	.text("Magnitude between 7.0 and 8.0")
+	.text("Magnitudes between 7.0 and 8.0")
 
 	svg.append("circle")
 	.attr("cx", width/4)
@@ -353,7 +360,7 @@ function oceanicEarthquake(snapshot) {
 	.attr("y", 100)
 	.style("font-weight", "bold")
 	.attr("fill", "#c40303")
-	.text("Magnitude greater than 8.0")
+	.text("Magnitudes greater than 8.0")
 </script>
 
 <div id="histogram" style="font-family:'Glegoo',serif; font-weight:bold; font-size:20px;
@@ -439,7 +446,7 @@ text-align:center">
 <script>
 
 var height = 550;
-var width = 850;
+var width = 960;
 var padding = 70; 
 
 var svg = d3.select("#linegraph").append("svg")
