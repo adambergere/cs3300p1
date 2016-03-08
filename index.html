@@ -121,24 +121,18 @@ function timeConverter(UNIX_timestamp){
 // Prints data onto the Map SVG
 function showEarthquake(snapshot) {
     var earthquake = snapshot.val();
-    // console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
+    console.log("Mag " + earthquake.mag + " at " + earthquake.place + " Date: " + timeConverter(earthquake.time));
 
-    if (earthquake.mag <= 7){
+    if (earthquake.mag >= 5 && earthquake.mag <= 7){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
 	.attr("r", earthquake.mag*3-15).attr("fill","#F2F205")
-<<<<<<< HEAD
 	.style("opacity",.6)
-	.attr("stroke","black")
-	;
-=======
-	.style("opacity",.7)
 	.attr("stroke","black");
->>>>>>> d5b9f9d3c3e9c79be22b5c9f3873847f93df5091
-    }
+	}
 
-    else if(earthquake.mag <= 8){
+    else if(earthquake.mag >= 7 && earthquake.mag <= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
