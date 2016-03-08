@@ -128,14 +128,9 @@ function showEarthquake(snapshot) {
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
 	.attr("r", earthquake.mag*3-15).attr("fill","#F2F205")
-<<<<<<< HEAD
 	.style("opacity",.6)
 	.attr("stroke","black")
 	;
-=======
-	.style("opacity",.7)
-	.attr("stroke","black");
->>>>>>> d5b9f9d3c3e9c79be22b5c9f3873847f93df5091
     }
 
     else if(earthquake.mag <= 8){
@@ -295,8 +290,14 @@ function oceanicEarthquake(snapshot) {
 
 
 });
-</script>
 
+	svg.append("text")
+	.text("* Radius of circle indicates magnitude of earthquake")
+	.attr("x", width/2)
+	.attr("y", height-20)
+	.style("font-size", "10pt")
+	.style("font-weight","bold");
+</script>
 <div id="mapkey" style="font-family:'Glegoo',serif;font-size:15px;text-align:center">
 </div>
 
@@ -407,10 +408,10 @@ var gradient = svg
     .attr("y2", "100%");
 gradient.append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#ede217");
+    .attr("stop-color", "#edc674");
 gradient.append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#e00d06");
+    .attr("stop-color", "#b57c0c");
 
 regions.forEach(function (p) {
 	svg.append("text").attr("x", xScale(0) - padding/1.1)
@@ -454,7 +455,7 @@ var maxdom = new Date('March 7, 2016 0:00:00');
 var xScale = d3.time.scale().domain([mindom, maxdom]).range([padding, width-20]);
 var yScale = d3.scale.linear().domain([1,10]).range([height-padding, padding]);
 
-var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(9);
+var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(6);
 var yAxis = d3.svg.axis().scale(yScale)
     .orient("left").ticks(5);
 
