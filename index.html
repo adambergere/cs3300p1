@@ -202,7 +202,6 @@ earthquakeRef.child("oceanic/8").on("child_added", oceanicEarthquake);
 earthquakeRef.child("oceanic/9").on("child_added", oceanicEarthquake);
 earthquakeRef.child("oceanic/10").on("child_added", oceanicEarthquake);
 
-
 var na_count = 0;
 var sa_count = 0;
 var africa_count = 0;
@@ -287,19 +286,22 @@ function oceanicEarthquake(snapshot) {
     };
 }
 
-
 });
 
+// Extra note on map
 	svg.append("text")
 	.text("* Radius of circle indicates magnitude of earthquake")
 	.attr("x", width/2)
 	.attr("y", height-20)
 	.style("font-size", "10pt")
 	.style("font-weight","bold");
+
 </script>
+
 <div id="mapkey" style="font-family:'Glegoo',serif;font-size:15px;text-align:center">
 </div>
 
+<!-- Javascript to generate Key for the map -->
 <script>
 	var height = 120;
 	var width = 500;
@@ -357,9 +359,10 @@ function oceanicEarthquake(snapshot) {
 
 <div id="histogram" style="font-family:'Glegoo',serif; font-weight:bold; font-size:20px;
 text-align:center">
-	<br><b>Number of Earthquakes Per Region</b><br>
+	<br><b>Number of Earthquakes Per Region in the past 2 years</b><br>
 </div>
 
+<!-- Javascript for histogram -->
 <script>
 
 var height = 400;
@@ -373,17 +376,17 @@ var svg = d3.select("#histogram").append("svg")
 .style("font-family", "Sanchez, sans-serif")
 .style("font-size","16px");
 
-var regions = ["North America", "South America", "Africa", "Asia","Australia","Europe","Antarctica","Oceanic"];
+var regions = ["Oceanic", "Asia", "South America", "North America","Europe","Antarctica","Africa","Australia"];
 
 var counts = {
-	"North America": 47,
-	"South America": 50,
-	"Africa": 0,
+	"Oceanic": 128,
 	"Asia": 79,
-	"Australia": 0,
+	"South America": 50,
+	"North America": 47,
 	"Europe": 11,
 	"Antarctica": 4,
-	"Oceanic": 128
+	"Africa": 0,
+	"Australia": 0
 }
 
 var yBands = d3.scale.ordinal()
