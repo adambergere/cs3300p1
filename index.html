@@ -127,18 +127,10 @@ function showEarthquake(snapshot) {
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
     g.append("circle").attr("cx", coords[0])
 	.attr("cy", coords[1])
-<<<<<<< HEAD
-	.attr("r", earthquake.mag*3-15).attr("fill","#F2F205")
-	.style("opacity",.6)
-	.attr("stroke","black")
-	;
-    }
-=======
 	.attr("r", earthquake.mag*3-14).attr("fill","#F2F205")
 	.style("opacity",.6)
 	.attr("stroke","black");
 	}
->>>>>>> 6e1e897dce8826989e6ddac7a6cf8bd50f110e5e
 
     else if(earthquake.mag >= 7 && earthquake.mag <= 8){
     var coords = projection([earthquake.location.lng,earthquake.location.lat])
