@@ -376,17 +376,17 @@ var svg = d3.select("#histogram").append("svg")
 .style("font-family", "Sanchez, sans-serif")
 .style("font-size","16px");
 
-var regions = ["North America", "South America", "Africa", "Asia","Australia","Europe","Antarctica","Oceanic"];
+var regions = ["Oceanic", "Asia", "South America", "North America","Europe","Antarctica","Africa","Australia"];
 
 var counts = {
-	"North America": 47,
-	"South America": 50,
-	"Africa": 0,
+	"Oceanic": 128,
 	"Asia": 79,
-	"Australia": 0,
+	"South America": 50,
+	"North America": 47,
 	"Europe": 11,
 	"Antarctica": 4,
-	"Oceanic": 128
+	"Africa": 0,
+	"Australia": 0
 }
 
 var yBands = d3.scale.ordinal()
