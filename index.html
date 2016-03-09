@@ -377,7 +377,7 @@ var svg = d3.select("#histogram").append("svg")
 .style("font-size","16px");
 
 // New instance of live earthquake data from all regions from magnitudes 6 to 10, inclusive
-var earthquakeRefHist = new Firebase("https://publicdata-earthquakes.firebaseio.com");
+var earthquakeRefHist = new Firebase("https://publicdata-earthquakes.firebaseio.com/by_continent");
 
 // earthquakeRefHist.child("oceanic/6").on("child_added", showEarthquakeHist);
 // earthquakeRefHist.child("oceanic/7").on("child_added", showEarthquakeHist);
@@ -516,8 +516,6 @@ regions.forEach(function (p) {
 		}
 	};
 });
-
-
 
 </script>
 
