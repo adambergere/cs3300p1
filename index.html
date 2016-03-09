@@ -379,79 +379,101 @@ var svg = d3.select("#histogram").append("svg")
 // New instance of live earthquake data from all regions from magnitudes 6 to 10, inclusive
 var earthquakeRefHist = new Firebase("https://publicdata-earthquakes.firebaseio.com/by_continent");
 
-// earthquakeRefHist.child("oceanic/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("oceanic/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("oceanic/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("oceanic/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("oceanic/10").on("child_added", showEarthquakeHist);
+
+// Oceanic earthquake data
+var earthquakeRefHistOceanic = earthquakeRefHist;
+earthquakeRefHistOceanic.child("oceanic/6").on("child_added", showEarthquakeHistOceanic);
+earthquakeRefHistOceanic.child("oceanic/7").on("child_added", showEarthquakeHistOceanic);
+earthquakeRefHistOceanic.child("oceanic/8").on("child_added", showEarthquakeHistOceanic);
+earthquakeRefHistOceanic.child("oceanic/9").on("child_added", showEarthquakeHistOceanic);
+earthquakeRefHistOceanic.child("oceanic/10").on("child_added", showEarthquakeHistOceanic);
 
 
-// earthquakeRefHist.child("asia/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("asia/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("asia/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("asia/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("asia/10").on("child_added", showEarthquakeHist);
+// Asia earthquake data
+// var earthquakeRefHistAsia = earthquakeRefHist;
+// earthquakeRefHistAsia.child("asia/6").on("child_added", showEarthquakeHistAsia);
+// earthquakeRefHistAsia.child("asia/7").on("child_added", showEarthquakeHistAsia);
+// earthquakeRefHistAsia.child("asia/8").on("child_added", showEarthquakeHistAsia);
+// earthquakeRefHistAsia.child("asia/9").on("child_added", showEarthquakeHistAsia);
+// earthquakeRefHistAsia.child("asia/10").on("child_added", showEarthquakeHistAsia);
 
-// earthquakeRefHist.child("south_america/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("south_america/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("south_america/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("south_america/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("south_america/10").on("child_added", showEarthquakeHist);
+// // SA earthquake data
+// var earthquakeRefHistSA = earthquakeRefHist;
+// earthquakeRefHistSA.child("south_america/6").on("child_added", showEarthquakeHistSA);
+// earthquakeRefHistSA.child("south_america/7").on("child_added", showEarthquakeHistSA);
+// earthquakeRefHistSA.child("south_america/8").on("child_added", showEarthquakeHistSA);
+// earthquakeRefHistSA.child("south_america/9").on("child_added", showEarthquakeHistSA);
+// earthquakeRefHistSA.child("south_america/10").on("child_added", showEarthquakeHistSA);
 
-// earthquakeRefHist.child("north_america/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("north_america/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("north_america/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("north_america/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("north_america/10").on("child_added", showEarthquakeHist);
+// // NA earthquake data
+// var earthquakeRefHistNA = earthquakeRefHist;
+// earthquakeRefHistNA.child("north_america/6").on("child_added", showEarthquakeHistNA);
+// earthquakeRefHistNA.child("north_america/7").on("child_added", showEarthquakeHistNA);
+// earthquakeRefHistNA.child("north_america/8").on("child_added", showEarthquakeHistNA);
+// earthquakeRefHistNA.child("north_america/9").on("child_added", showEarthquakeHistNA);
+// earthquakeRefHistNA.child("north_america/10").on("child_added", showEarthquakeHistNA);
 
-// earthquakeRefHist.child("europe/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("europe/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("europe/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("europe/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("europe/10").on("child_added", showEarthquakeHist);
+// // Europe earthquake data
+// var earthquakeRefHistEurope = earthquakeRefHist;
+// earthquakeRefHistEurope.child("europe/6").on("child_added", showEarthquakeHistEurope);
+// earthquakeRefHistEurope.child("europe/7").on("child_added", showEarthquakeHistEurope);
+// earthquakeRefHistEurope.child("europe/8").on("child_added", showEarthquakeHistEurope);
+// earthquakeRefHistEurope.child("europe/9").on("child_added", showEarthquakeHistEurope);
+// earthquakeRefHistEurope.child("europe/10").on("child_added", showEarthquakeHistEurope);
 
-// earthquakeRefHist.child("antarctica/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("antarctica/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("antarctica/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("antarctica/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("antarctica/10").on("child_added", showEarthquakeHist);
+// // Antarctica earthquake data
+// var earthquakeRefHistAnt = earthquakeRefHist;
+// earthquakeRefHistAnt.child("antarctica/6").on("child_added", showEarthquakeHistAnt);
+// earthquakeRefHistAnt.child("antarctica/7").on("child_added", showEarthquakeHistAnt);
+// earthquakeRefHistAnt.child("antarctica/8").on("child_added", showEarthquakeHistAnt);
+// earthquakeRefHistAnt.child("antarctica/9").on("child_added", showEarthquakeHistAnt);
+// earthquakeRefHistAnt.child("antarctica/10").on("child_added", showEarthquakeHistAnt);
 
-// earthquakeRefHist.child("africa/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("africa/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("africa/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("africa/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("africa/10").on("child_added", showEarthquakeHist);
+// // Africa earthquake data
+// var earthquakeRefHistAfrica = earthquakeRefHist;
+// earthquakeRefHistAfrica.child("africa/6").on("child_added", showEarthquakeHistAfrica);
+// earthquakeRefHistAfrica.child("africa/7").on("child_added", showEarthquakeHistAfrica);
+// earthquakeRefHistAfrica.child("africa/8").on("child_added", showEarthquakeHistAfrica);
+// earthquakeRefHistAfrica.child("africa/9").on("child_added", showEarthquakeHistAfrica);
+// earthquakeRefHistAfrica.child("africa/10").on("child_added", showEarthquakeHistAfrica);
 
-// earthquakeRefHist.child("australia/6").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("australia/7").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("australia/8").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("australia/9").on("child_added", showEarthquakeHist);
-// earthquakeRefHist.child("australia/10").on("child_added", showEarthquakeHist);
-
-earthquakeRefHist.child("by_continent").on("child_added", showEarthquakeHist);
-// Counting function to sum total earthquakes by region
-// function countEarthquakes(region) {
-// 	var sum = 0
-// 	for (i in region)
-// }
-
-function showEarthquakeHist(snapshot) {
-    var earthquake = snapshot.val();
-    console.log("Continent " + earthquake.keys);
-}
-
-var regions = ["Oceanic", "Asia", "South America", "North America","Europe","Antarctica","Africa","Australia"];
+// // Australia earthquake data
+// var earthquakeRefHistAust = earthquakeRefHist;
+// earthquakeRefHistAust.child("australia/6").on("child_added", showEarthquakeHistAust);
+// earthquakeRefHistAust.child("australia/7").on("child_added", showEarthquakeHistAust);
+// earthquakeRefHistAust.child("australia/8").on("child_added", showEarthquakeHistAust);
+// earthquakeRefHistAust.child("australia/9").on("child_added", showEarthquakeHistAust);
+// earthquakeRefHistAust.child("australia/10").on("child_added", showEarthquakeHistAust);
 
 var counts = {
-	"Oceanic": 128,
-	"Asia": 79,
-	"South America": 50,
-	"North America": 47,
-	"Europe": 11,
-	"Antarctica": 4,
 	"Africa": 0,
-	"Australia": 0
+	"Antarctica": 4,
+	"Asia": 79,
+	"Australia": 0,
+	"Europe": 11,
+	"Oceanic": 128,
+	"North America": 47,
+	"South America": 50
 }
+
+function showEarthquakeHistOceanic(snapshot) {
+	var counter = 0;
+    var earthquake = snapshot.val();
+    var oceanicEarthquakeCount = earthquake.place;
+    for (i in oceanicEarthquakeCount) {
+    	counter += 1;
+    }
+    console.log("counter is:"+typeof counter+" and "+counter)
+    counts["Oceanic"] = parseInt(counter);
+}
+
+
+// function showEarthquakeHistAfrica(snapshot) {
+// 	var earthquake = snapshot.val();
+// 	console.log("Africa: "+earthquake);
+// }
+
+var regions = ["Oceanic", "Asia", "South America", "North America","Europe","Antarctica","Africa","Australia"];
 
 var yBands = d3.scale.ordinal()
 .domain(regions)
