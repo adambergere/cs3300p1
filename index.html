@@ -211,6 +211,8 @@ var europe_count = 0;
 var antarctica_count = 0;
 var oceanic_count = 0;
 
+
+// Functions to count how many earthquakes there are in each region for the histogram below.
 function naEarthquake(snapshot) {
     var earthquake = snapshot.val();
     na_count += 1;
@@ -464,7 +466,7 @@ function showEarthquakeHistOceanic(snapshot) {
     	counter += 1;
     }
     console.log("counter is:"+typeof counter+" and "+counter)
-    counts["Oceanic"] = parseInt(counter);
+    counts["Oceanic"] = counter;
 }
 
 
